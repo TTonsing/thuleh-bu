@@ -1,0 +1,101 @@
+<?php
+/*
+*Package: Thuleh Bu
+*Description: English-Paite Dictionary 
+*Version: 1.0.0 Version updated on 20191017
+*File Location: %WordpressRoot%/wp-content/plugins/thuleh-bu/thulehbu_update.php
+*Author: TTonsing @Mungboi Media
+*Author URI: http://mungboimedia.byethost7.com
+*Description: This is a Bilingual Dictionary. In Paite dialect (tongue) 'Dictionary' is referred to as Thulehna Bu / Thuleh Bu etc. Interpreting the meaning of a word is known as 'Thulet, Thuleh, or Thukhia, or Khia.
+*Licence: GPL v2.0 or Later
+*Version Updates: No version update yet. Will be updated in future for features like Update/Delete functionalities incorporated in this version, confirmation before alterig records, deletion etc added. UI tweaks, change the Plugins Icons.
+*/
+
+// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	} 
+
+
+function thulehbu_update(){
+	
+global $wpdb, $table_name_dic;
+    $table_name_dic = $wpdb->prefix . "thuleh_bu";
+    $id = $_GET["id"];
+	$rowG =$wpdb ->get_row("SELECT * FROM $table_name_dic WHERE id=$id"); //this fetch the row items by id
+	//$id= stripslashes_deep($_POST["id"]);
+    $word = stripslashes_deep($_POST["word"]);
+	$wordtype = stripslashes_deep($_POST["wordtype"]);
+	$definition = stripslashes_deep ($_POST["definition"]);
+	$paite = stripslashes_deep ($_POST["Paite"]);
+	$wpdb->show_errors(); 
+//update
+    if (isset($_POST['update'])) {
+        $wpdb->update(
+                $table_name_dic, //table
+				array('word' => $word, 'wordtype' =>$wordtype, 'definition'=>$definition, 'Paite'=>$paite), //data
+				array('id'=>$id), // where
+				array('%s','%s', '%s','%s'), // data format
+                array('%d') //where format	
+				
+        );
+    }
+//delete
+		else if (isset($_POST['delete'])) {
+        $wpdb->query($wpdb->prepare("DELETE FROM $table_name_dic WHERE id = %d", $id));
+    } else {//selecting value to update	
+        $word_queries = $wpdb->get_results($wpdb->prepare("SELECT id, word,wordtype,definition, Paite FROM $table_name_dic where id=%d", $id));
+        foreach ($word_queries as $s) {
+			//$id =$s->id;
+            $word = $s->word;
+			$wordtype =$s->wordtype;
+			$definition =$s->definition;
+			$paite =$s->Paite;
+			
+        }
+    } 
+	
+	$record_id= $row->id; $next_record =$record_id+1; $previous_record= $record_id-1;
+    ?>
+    
+    <div class="wrap">
+        <h2>Mungboi Media: Thuleh Bu Update Word List</h2>
+		<h3><a href="<?php echo admin_url('admin.php?page=thuleh_bu'); ?>">&laquo; Back</a></h3>
+        <?php if ($_POST['delete']) { ?>
+            <div class="updated"><p>Thumal Nulmangta</p></div>
+            <h3><a href="<?php echo admin_url('admin.php?page=thulehb_bu') ?>">&laquo; Back to Thuleh Bu</a></h3>
+
+        <?php } else if ($_POST['update']) { ?>
+            <div class="updated"><p>Thuleh Bu updated</p></div>
+            <h3><a href="<?php echo admin_url('admin.php?page=thuleh_bu') ?>">&laquo; Back to Thuleh Pek</a></h3>
+
+        <?php } else { ?>
+            <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+                <table class='wp-list-table widefat fixed'>
+					<tr width="20%" >
+					<th width="5%">No </th><td width="60%"><input readonly="readonly" type="text" name="id" value="<?php echo $id; ?>"/></td></tr> 
+                    <tr width="20%" >
+					<th width="5%">Word</th><td width="60%"><input readonly="readonly" type="text" name="word" value="<?php echo $rowG->word; ?>" maxlength="30"/></td></tr>
+					<tr width="20%" >
+					<th width="5%">Wordtype</th><td width="60%"><input readonly="readonly" type="text" name="wordtype" value="<?php echo $rowG->wordtype; ?>"maxlength="16"/></td></tr>
+					<tr width="20%" >
+					<th width="5%">Definition</th><td width="60%"><input  type="text" name="definition" value="<?php echo $rowG->definition; ?>" maxlength="200" size="50"  cols="100"/></td></tr>
+					<tr width="20%" rowspan="5">
+					<th width="5%">Paite</th><td width="60%"><input type="text" name="Paite" value="<?php echo $rowG->Paite; ?>" maxlength="200" size="50"  cols="100"/></td></tr>
+                </table>
+                <input type='submit' name="update" value='Update' class='button' onclick="return confirm('Confirm Update?')" />&nbsp;&nbsp;
+                <input type='submit' name="delete" value='Delete' class='button' onclick="return confirm('Confirm to delete?')"/>
+            </form>
+			
+        <?php } $record_id= $id; $next_record =$record_id+1; $previous_record= $record_id-1;
+		?>
+			<div class="pager">
+		<ul class="pager">
+		<li><h3><a href="<?php echo htmlspecialchars($_SERVER['REQUEST_SELF']);?>index.php?page=thuleh_bu&id=<?php  echo $record_id;?>">View Updated Thumal</a></h3>
+		<li><h3><a href="<?php echo htmlspecialchars($_SERVER['REQUEST_SELF']);?>index.php?page=thuleh_bu&id=<?php  echo $next_record;?>"> Update Next Thumal</a></h3>
+		</ul>
+		</div>
+    </div>
+    <?php
+}
+?>

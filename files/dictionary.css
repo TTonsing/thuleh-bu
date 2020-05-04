@@ -1,0 +1,120 @@
+	 /*body{
+	 font-family: arial;
+	 //font-size: 20;
+	 }
+
+	 #prompt{
+	 margin: 0 10 0 0;
+	 }
+
+	 #slider{
+	 width: 100;
+	 }		  
+
+	 .offensive{
+	 color: red;
+	 }					 
+
+	 input{
+	 border: solid 2px #aaa;
+	 padding: 5px;
+	 font-family: arial;
+	 color: #333;
+	 font-size: 20;
+	 }
+
+	 #lookup{
+	 background-image: url('magnifying-glass.png');
+	 background-repeat: no-repeat;
+	 background-position: 10 5;
+	 padding-left: 40px;
+	 }
+
+	 #opener{
+	 cursor: pointer;
+	 font-size: 8pt;
+	 color: #aaa;
+	 }	 
+
+	 #opener:hover{
+	 color: #777;
+	 }
+
+	 #dialog{
+	 text-align: left;	
+	 font-size: 8pt;
+	 }
+
+	 div{
+	 text-align: center;
+	 }
+
+	 #header{
+	 width: 100%;
+	 margin: 50 0 50 0;
+	 }
+
+	 .counter{
+	 padding: 0 0 20 0;
+	 font-size: 16px;
+	 text-align: left;
+	 width: 620px;
+	 margin: auto;
+	 }
+
+	 .def{
+	 background-color: #cfc;
+	 border: solid 1px #bdb;
+	 padding: 10px;
+	 text-align: left;
+	 width: 600px;
+	 margin: auto;
+	 }
+
+	 .no-def{
+	 background-color: #fcc;
+	 border: solid 1px #dbb;
+	 padding: 10px;
+	 text-align: left;
+	 width: 600px;
+	 margin: auto;
+	 }
+
+	 div.word{
+	 text-align: left;
+	 padding: 0 2 10 2;
+	 }				 
+
+	 .word{
+	 font-family: courier;
+	 font-weight: bold;
+	 font-size: 24;
+	 color: #777;
+	 }*/
+
+	 .jumbotron{
+		 margin-bottom: 0px;
+	 }
+
+	 .match_count{
+		 margin-top: 10px;
+		 margin-bottom: 10px;
+	 }
+	
+
+	.red{
+		 color: red;
+	 }		
+
+	 .search-term{
+		 font-style: italic;
+		 font-size: x-large;
+	 }
+
+	 .definition{
+		 font-size: large;
+	 }
+
+	 .no-definition, .definition-header{
+		 font-size: xx-large;
+	 }
