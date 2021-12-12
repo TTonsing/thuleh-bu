@@ -1,0 +1,76 @@
+<html>
+
+<head>
+	<title>Boggle Dictionary</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<script type="text/javascript" src="files/OWL2.js"></script>
+	<script type="text/javascript" src="files/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="files/dictionary.js"></script>
+	<script type="text/javascript" src="files/isMobile.min.js"></script>
+	<script src="files/handlebars-v4.0.10.js"></script>
+	<script src="files/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="files/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="files/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css"/>
+	<link href="files/jumbotron-narrow.css" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="files/dictionary.css" />
+
+	<!-- Results javascript template -->
+	<script id="results-template" type="text/x-handlebars-template">
+		<div class="match_count">
+			Matches found for 
+			<span class="search-term">"{{search_term}}"</span> 
+			<span class="badge">{{num_results}}</span>
+		</div>
+		
+		{{#if has_results}}
+			{{#each results}}
+			<ul class="list-group">
+				<li class="list-group-item list-group-item-success definition-header">{{@key}}</li>
+				{{#each this}}
+				<li class="list-group-item definition">{{formatDefinition this}}</li>
+				{{/each}}
+			</ul>
+			{{/each}}
+		{{else}}
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-danger no-definition">
+				Nope.  Not a word.
+			</li>
+		</ul>
+		{{/if}}
+	</script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Boggle Dictionary</h1>
+			<p class="lead"> Find your Boggle word (supports
+				<a href="https://www.cheatography.com/davechild/cheat-sheets/regular-expressions/" target="_blank">regexp</a>)
+				<a href="http://www.insightcoder.com/boggle-dictionary" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right"
+					title="Learn more" target="_blank"></a>
+			</p>
+				<div class="input-group input-group-lg">
+					<input type="text" id="lookup" class="form-control" placeholder="Search">
+					<span class="input-group-btn">
+						<button class="btn btn-success" id="submit" type="button">Go!</button>
+					</span>
+				</div>
+		</div>
+
+		<div id="results"></div>
+
+		<footer class="footer">
+			<p>&copy;
+				<a href="http://www.insightcoder.com"> Insight Coder</a>
+			</p>
+		</footer>
+	</div>
+</body>
+
+</html>
